@@ -4,48 +4,28 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Yeşil arka plan -->
-    <path
-        android:fillColor="#3DDC84"
-        android:pathData="M0,0 L108,0 L108,108 L0,108 Z" />
-
-    <!-- Robot -->
-    <!-- Kafa -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M35,50 Q35,38 54,38 Q73,38 73,50 L73,54 L35,54 Z" />
-
-    <!-- Gövde -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M32,56 Q32,52 38,52 L70,52 Q76,52 76,56 L76,80 Q76,84 72,84 L36,84 Q32,84 32,80 Z" />
-
-    <!-- Antenler -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="2.5"
-        android:pathData="M46,38 L40,28" />
-    <circle android:fillColor="#1A7A4A" android:cx="39" android:cy="26" android:r="4"/>
-
-    <path
-        android:fillColor="#FFFFFF"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="2.5"
-        android:pathData="M62,38 L68,28" />
-    <circle android:fillColor="#1A7A4A" android:cx="69" android:cy="26" android:r="4"/>
-
-    <!-- Gözler -->
-    <circle android:fillColor="#3DDC84" android:cx="45" android:cy="46" android:r="4"/>
-    <circle android:fillColor="#3DDC84" android:cx="63" android:cy="46" android:r="4"/>
-
-    <!-- Kollar -->
+    <path android:fillColor="#3DDC84"
+        android:pathData="M0,0 L108,0 L108,108 L0,108 Z"/>
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M35,50 Q35,38 54,38 Q73,38 73,50 L73,54 L35,54 Z"/>
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M32,56 Q32,52 38,52 L70,52 Q76,52 76,56 L76,80 Q76,84 72,84 L36,84 Q32,84 32,80 Z"/>
+    <path android:fillColor="#FFFFFF" android:strokeColor="#FFFFFF" android:strokeWidth="2.5"
+        android:pathData="M46,38 L40,28"/>
+    <path android:fillColor="#1A7A4A"
+        android:pathData="M39,22 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"/>
+    <path android:fillColor="#FFFFFF" android:strokeColor="#FFFFFF" android:strokeWidth="2.5"
+        android:pathData="M62,38 L68,28"/>
+    <path android:fillColor="#1A7A4A"
+        android:pathData="M69,22 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"/>
+    <path android:fillColor="#3DDC84"
+        android:pathData="M45,46 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"/>
+    <path android:fillColor="#3DDC84"
+        android:pathData="M63,46 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"/>
     <path android:fillColor="#FFFFFF"
         android:pathData="M20,56 Q16,56 16,62 L16,74 Q16,78 20,78 L32,78 L32,56 Z"/>
     <path android:fillColor="#FFFFFF"
         android:pathData="M88,56 Q92,56 92,62 L92,74 Q92,78 88,78 L76,78 L76,56 Z"/>
-
-    <!-- Bacaklar -->
     <path android:fillColor="#FFFFFF"
         android:pathData="M38,84 L38,96 Q38,100 42,100 L46,100 Q50,100 50,96 L50,84 Z"/>
     <path android:fillColor="#FFFFFF"
