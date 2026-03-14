@@ -46,9 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (izinVarMi()) {
-            numaralariYukle()
-        }
+        if (izinVarMi()) numaralariYukle()
     }
 
     private fun izinleriKontrolEt() {
@@ -69,16 +67,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun izinVarMi(): Boolean {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED
+        return ContextCompat.checkSelfPermission(
+            this, Manifest.permission.READ_CALL_LOG
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == IZIN_KODU) {
             if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
                 numaralariYukle()
             } else {
-                Toast.makeText(this, "İzinler olmadan uygulama çalışamaz!", Toast.LENGTH_LONG).show()
                 binding.txtBilgi.text = "⚠️ Lütfen uygulamaya gerekli izinleri verin."
                 binding.txtBilgi.visibility = View.VISIBLE
             }
@@ -87,34 +90,52 @@ class MainActivity : AppCompatActivity() {
 
     private fun numaralariYukle() {
         bilinmeyenNumaralar.clear()
-        val kaydedilenler = kaydedilenNumaralariGetir()
-        val arayanlar = linkedSetOf<String>() // Tekrar yok
 
-        val projection = arrayOf(CallLog.Calls.NUMBER, CallLog.Calls.TYPE)
-        val selection = "${CallLog.Calls.TYPE} = ?"
-        val selectionArgs = arrayOf(CallLog.Calls.INCOMING_TYPE.toString())
+        val kaydedilenler = kaydedilenNumaralariGetir()
+        val gorulmusNumaralar = linkedSetOf<String>()
+
+        // Tip filtresi YOK — tüm aramalar (gelen + cevapsız + giden)
+        val projection = arrayOf(
+            CallLog.Calls.NUMBER,
+            CallLog.Calls.TYPE
+        )
         val sortOrder = "${CallLog.Calls.DATE} DESC"
 
         val cursor: Cursor? = contentResolver.query(
             CallLog.Calls.CONTENT_URI,
             projection,
-            selection,
-            selectionArgs,
+            null,
+            null,
             sortOrder
         )
 
         cursor?.use {
             val numIdx = it.getColumnIndex(CallLog.Calls.NUMBER)
+            val tipIdx = it.getColumnIndex(CallLog.Calls.TYPE)
+
             while (it.moveToNext()) {
                 val numara = it.getString(numIdx) ?: continue
-                val temiz = numara.replace(Regex("[^+0-9]"), "")
-                if (temiz.isNotEmpty() && !kaydedilenler.contains(temiz)) {
-                    arayanlar.add(temiz)
+                val tip = it.getInt(tipIdx)
+
+                // Sadece gelen ve cevapsız aramaları göster (giden hariç)
+                if (tip != CallLog.Calls.INCOMING_TYPE &&
+                    tip != CallLog.Calls.MISSED_TYPE) continue
+
+                // Numarayı normalize et
+                val temiz = numara.trim()
+                if (temiz.isEmpty() || temiz == "-1" || temiz == "unknown") continue
+
+                // Kayıtlı değilse ekle
+                val normalized = normalizeNumara(temiz)
+                if (!kaydedilenler.any { kayitli ->
+                    normalizeNumara(kayitli) == normalized
+                }) {
+                    gorulmusNumaralar.add(temiz)
                 }
             }
         }
 
-        bilinmeyenNumaralar.addAll(arayanlar.take(50))
+        bilinmeyenNumaralar.addAll(gorulmusNumaralar.take(50))
         adapter.notifyDataSetChanged()
 
         if (bilinmeyenNumaralar.isEmpty()) {
@@ -127,6 +148,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Numaraları karşılaştırmak için sadece rakamları al, ülke kodu farkını yok say
+    private fun normalizeNumara(numara: String): String {
+        val sadeceSayi = numara.replace(Regex("[^0-9]"), "")
+        // Son 10 haneyi al (Türkiye numaraları için yeterli)
+        return if (sadeceSayi.length >= 10) sadeceSayi.takeLast(10) else sadeceSayi
+    }
+
     private fun kaydedilenNumaralariGetir(): Set<String> {
         val kaydedilenler = mutableSetOf<String>()
         val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.NUMBER)
@@ -137,15 +165,13 @@ class MainActivity : AppCompatActivity() {
         cursor?.use {
             val numIdx = it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
             while (it.moveToNext()) {
-                val num = it.getString(numIdx)?.replace(Regex("[^+0-9]"), "") ?: continue
+                val num = it.getString(numIdx) ?: continue
                 kaydedilenler.add(num)
             }
         }
         return kaydedilenler
     }
 }
-
-// ─── Adapter ───────────────────────────────────────────────────────────────
 
 class NumaraAdapter(
     private val liste: List<String>,
@@ -163,9 +189,8 @@ class NumaraAdapter(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        val numara = liste[position]
-        holder.txtNumara.text = numara
-        holder.itemView.setOnClickListener { tiklamaCallback(numara) }
+        holder.txtNumara.text = liste[position]
+        holder.itemView.setOnClickListener { tiklamaCallback(liste[position]) }
     }
 
     override fun getItemCount() = liste.size
