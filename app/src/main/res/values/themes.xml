@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.NumaraKaydet" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#3DDC84</item>
+        <item name="colorPrimaryDark">#1A7A4A</item>
+        <item name="colorAccent">#3DDC84</item>
+        <item name="android:statusBarColor">#1A7A4A</item>
+    </style>
+</resources>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F4F0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Başlık -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2E9B5F"
+            android:orientation="vertical"
+            android:paddingTop="40dp"
+            android:paddingBottom="24dp"
+            android:paddingHorizontal="24dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📞"
+                android:textSize="48sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Numarayı Kaydet"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp" />
+
+            <!-- Numara göster -->
+            <TextView
+                android:id="@+id/txtNumaraGoster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#C8FFD4"
+                android:layout_marginTop="8dp"
+                android:letterSpacing="0.1" />
+
+        </LinearLayout>
+
+        <!-- İçerik Kartı -->
+        <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bu numarayı kime kaydetmek istiyorsunuz?"
+                    android:textSize="16sp"
+                    android:textColor="#333333"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="İsim kutusuna tıklayın ve söyleyin, ya da kendiniz yazın"
+                    android:textSize="13sp"
+                    android:textColor="#777777"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- İsim Giriş Alanı -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="İsim (tıklayın ve söyleyin)"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtIsim"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName|textCapWords"
+                        android:textSize="20sp"
+                        android:padding="16dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Ses Durumu -->
+                <TextView
+                    android:id="@+id/txtSesDurumu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🎙️ Dinliyorum..."
+                    android:textSize="15sp"
+                    android:textColor="#2E9B5F"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Mikrofon Butonu -->
+                <Button
+                    android:id="@+id/btnMikrofon"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:text="🎙️ Tekrar Söyle"
+                    android:textSize="18sp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#3DDC84"
+                    android:layout_marginTop="16dp"
+                    style="@style/Widget.MaterialComponents.Button" />
+
+                <!-- Kaydet Butonu -->
+                <Button
+                    android:id="@+id/btnKaydet"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:text="✅ Rehbere Kaydet"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#1A5C2E"
+                    android:layout_marginTop="12dp"
+                    style="@style/Widget.MaterialComponents.Button" />
+
+                <!-- Geri Dön -->
+                <Button
+                    android:id="@+id/btnGeriDon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="← Geri Dön"
+                    android:textSize="16sp"
+                    android:textColor="#555555"
+                    android:layout_marginTop="8dp"
+                    style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

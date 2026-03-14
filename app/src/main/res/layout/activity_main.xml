@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F0F4F0"
+    android:padding="0dp">
+
+    <!-- Başlık Bandı -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3DDC84"
+        android:orientation="vertical"
+        android:paddingTop="40dp"
+        android:paddingBottom="20dp"
+        android:paddingHorizontal="24dp"
+        android:gravity="center">
+
+        <!-- Android Robot İkonu -->
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_android_robot"
+            android:contentDescription="Android Robot" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Numara Kaydet"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dedenim için ♥"
+            android:textSize="14sp"
+            android:textColor="#E0FFE0"
+            android:layout_marginTop="2dp" />
+
+    </LinearLayout>
+
+    <!-- Orta Büyük Yazı -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kaydetmek istediğiniz numarayı seçiniz."
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#1A5C2E"
+        android:gravity="center"
+        android:padding="20dp"
+        android:background="#FFFFFF"
+        android:elevation="4dp" />
+
+    <!-- Bilgi mesajı (boş veya hata durumu) -->
+    <TextView
+        android:id="@+id/txtBilgi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:gravity="center"
+        android:padding="24dp"
+        android:visibility="gone"
+        android:textColor="#555555" />
+
+    <!-- Numara Listesi -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:clipToPadding="false" />
+
+</LinearLayout>
